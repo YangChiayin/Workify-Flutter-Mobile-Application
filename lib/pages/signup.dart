@@ -1,8 +1,46 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+//import 'config.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({super.key});
+  //i removed the const because I added the controllers
+   SignupPage({super.key});
 
+  // Create controllers to store the email and password input
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+//  bool _isNotValid = false;
+
+  //create a function to snd the email and password to backkend
+  void registerUser() async{
+    print("registerUser was called");
+    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+      print("I got tothe loop");
+        //we will create an object that we will send to our backend - this will be send in the req body
+        var reqBody={
+          "email": emailController.text,
+          "password": passwordController.text
+        };
+
+       // this make a call to the backend and will get the response from the backend 
+        var response = await http.post(
+        Uri.parse('http://10.0.0.165:3000/registration'),
+        //we need to define we are passing a json
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody)
+        );
+        print("this is the line before the response");
+         print(response);
+    }else{
+      // setState((){
+      //   _isNotValid = true;
+      // }),
+      print("Email or password cannot be empty"); // Debug feedback
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +77,9 @@ class SignupPage extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
-            const TextField(
+            //I Rremoved the const to be able to save the input
+            TextField(
+               controller: emailController,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 labelText: 'Email',
@@ -56,7 +96,8 @@ class SignupPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const TextField(
+             TextField(
+              controller: passwordController, // Attach the password controller
               obscureText: true,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
@@ -75,6 +116,9 @@ class SignupPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Handle login logic
+                print("I pressed the button");
+                registerUser();
+
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

@@ -1,7 +1,74 @@
 import 'package:flutter/material.dart';
-
+import 'dart:convert'; // for jsonEncode
+import 'package:http/http.dart' as http;
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  // Create controllers to store the email and password input
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+//function to handle login
+  void loginUser(BuildContext context) async {
+    // Get email and password from the controllers
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    // Create the body of the request
+    Map<String, String> body = {
+      'email': email,
+      'password': password,
+    };
+
+    try {
+      // Send the POST request to the backend
+      var response = await http.post(
+        Uri.parse('http://10.0.0.165:3000/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(body),
+      );
+      //get the response from the backend
+      if (response.statusCode == 200) {
+        // If the response is successful, parse the response
+        var data = jsonDecode(response.body);
+        // Check for login success
+        if (data['success'] == 'Login successful') {
+          // Navigate to the home page or dashboard
+          Navigator.pushReplacementNamed(context, '/detail'); // Update with your route
+        } else {
+          // Show error message
+          showErrorDialog(context, 'Invalid credentials. Please try again.');
+        }
+      } else {
+        // Show error message if status code is not 200
+        showErrorDialog(context, 'Error logging in. Please try again later.');
+      }
+    } catch (e) {
+      //Show exception
+      showErrorDialog(context, 'An error occurred. Please try again later.');
+    }
+  }
+
+  // Function to show error dialog
+  void showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +92,11 @@ class LoginPage extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            const TextField(
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
+            TextField(
+              //controller for the email field
+               controller: emailController, 
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: 'email@domain.com',
                 labelStyle: TextStyle(color: Colors.grey),
@@ -42,10 +111,11 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const TextField(
+            TextField(
+              controller: passwordController, 
               obscureText: true,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 labelStyle: TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(),
@@ -61,6 +131,7 @@ class LoginPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Handle login logic
+                 loginUser(context); 
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
