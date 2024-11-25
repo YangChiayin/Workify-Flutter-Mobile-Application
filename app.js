@@ -10,9 +10,5 @@ app.use(body_parser.json());
 
 app.use('/',userRouter);
 app.use(express.json());
-app.use(cors({
-    origin: '*', // Allow all origins or restrict to specific origins
-    methods: 'GET,POST', // Allow specific methods
-    allowedHeaders: 'Content-Type'
-  }));
+app.use(cors());
 module.exports = app;
