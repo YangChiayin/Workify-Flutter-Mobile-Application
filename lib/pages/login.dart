@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'dart:convert'; // for jsonEncode
 import 'package:http/http.dart' as http;
+import 'config.dart';
+
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
   // Create controllers to store the email and password input
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
 //function to handle login
   void loginUser(BuildContext context) async {
     // Get email and password from the controllers
     String email = emailController.text;
     String password = passwordController.text;
-
+ 
     // Create the body of the request
     Map<String, String> body = {
       'email': email,
@@ -22,7 +25,8 @@ class LoginPage extends StatelessWidget {
     try {
       // Send the POST request to the backend
       var response = await http.post(
-        Uri.parse('http://10.0.0.165:3000/login'),
+        //we are using the const in config, this way if we need to update the ip address, we only do it at config.dart
+        Uri.parse(login),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),
       );
@@ -32,8 +36,14 @@ class LoginPage extends StatelessWidget {
         var data = jsonDecode(response.body);
         // Check for login success
         if (data['success'] == 'Login successful') {
-          // Navigate to the home page or dashboard
-          Navigator.pushReplacementNamed(context, '/detail'); // Update with your route
+          // Navigate to the next page (servicesPage)
+          //this was modified to pass the email argument to the next screen
+          Navigator.pushNamed(
+            context,
+            '/servicesPage',
+            arguments: email,
+          );
+  
         } else {
           // Show error message
           showErrorDialog(context, 'Invalid credentials. Please try again.');
@@ -54,7 +64,7 @@ class LoginPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(message),
           actions: [
             TextButton(
