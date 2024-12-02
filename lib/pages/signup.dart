@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-//import 'config.dart';
+import 'config.dart';
 
 class SignupPage extends StatelessWidget {
   //i removed the const because I added the controllers
@@ -26,7 +25,7 @@ class SignupPage extends StatelessWidget {
 
        // this make a call to the backend and will get the response from the backend 
         var response = await http.post(
-        Uri.parse('http://10.0.0.165:3000/registration'),
+        Uri.parse(registration),
         //we need to define we are passing a json
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(reqBody)

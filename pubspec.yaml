@@ -60,7 +60,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-  - assets/images/google_icon.png
+    - assets/images/google_icon.png
+    - assets/images/cleaning.jpg
+    - assets/images/electrician.jpg
+    - assets/images/flooring.jpg
+    - assets/images/plumbing.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
