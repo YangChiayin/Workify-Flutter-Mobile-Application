@@ -2,10 +2,18 @@ const mongoose= require('mongoose');
 //import the bcrypt library
 const bcrypt = require("bcrypt");
 const db = require('../config/db');
+//this will help us to generate a unique user id to every new user
+const { v4: uuidv4 } = require("uuid"); 
 
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+    userID: {
+        type: String,
+        required: true,
+        unique: true, // Ensure the ID is unique
+        default: uuidv4, // Generate a unique ID when a new user is created
+      },
     email:{
         type: String,
         required:true,

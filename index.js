@@ -5,6 +5,7 @@ const cors = require('cors');
 const db = require('./config/db');
 //importing the user schema 
 const UserModel = require('./model/user.model');
+const ServiceMode = require('./model/service.model');
 
 const port = 3000;
 
