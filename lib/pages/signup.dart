@@ -13,7 +13,7 @@ class SignupPage extends StatelessWidget {
 //  bool _isNotValid = false;
 
   //create a function to snd the email and password to backkend
-  void registerUser() async{
+  void registerUser(BuildContext context) async {
     print("registerUser was called");
     if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
       print("I got tothe loop");
@@ -23,23 +23,77 @@ class SignupPage extends StatelessWidget {
           "password": passwordController.text
         };
 
-       // this make a call to the backend and will get the response from the backend 
-        var response = await http.post(
-        Uri.parse(registration),
-        //we need to define we are passing a json
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(reqBody)
-        );
-        print("this is the line before the response");
-         print(response);
-    }else{
-      // setState((){
-      //   _isNotValid = true;
-      // }),
+        try {
+          // this make a call to the backend and will get the response from the backend 
+          var response = await http.post(
+            Uri.parse(registration),
+            //we need to define we are passing a json
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode(reqBody)
+          );
+          print("this is the line before the response");
+          print(response);
+
+          // Handle the response from the server
+          // Modified response handling
+          if (response.statusCode == 200 || response.statusCode == 201) { // Added 201 status
+            // Show success message and navigate to login regardless of specific success message
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Success'),
+                  content: const Text('Registration successful! Please login.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close dialog
+                        Navigator.pushReplacementNamed(context, '/login'); // Navigate to login
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            // Show error for non-200/201 status codes
+            showErrorDialog(context, 'Error registering. Please try again later. Status: ${response.statusCode}');
+            print("Response body: ${response.body}"); // Debug print to see actual response
+          }
+        } catch (e) {
+          // Show error for any exceptions during the request
+          showErrorDialog(context, 'An error occurred. Please try again later. Error: $e');
+          print("Error: $e"); // Debug print for errors
+        }
+    } else {
+      // Show error for empty fields
+      showErrorDialog(context, 'Email and password cannot be empty');
       print("Email or password cannot be empty"); // Debug feedback
     }
-
   }
+
+  // Function to show error dialog - similar to login page
+  void showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +170,7 @@ class SignupPage extends StatelessWidget {
               onPressed: () {
                 // Handle login logic
                 print("I pressed the button");
-                registerUser();
+                registerUser(context); // Added context parameter
 
               },
               style: ElevatedButton.styleFrom(
