@@ -1,3 +1,5 @@
+// import 'dart:math';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert'; 
@@ -33,8 +35,8 @@ void saveServiceToDatabase(BuildContext context, String serviceName, String emai
             //i am passing so I can save the description in the database - chec main.dart
             arguments: serviceID
           );
-        // Service saved successfully
-        // showErrorDialog(context, 'Service saved successfully!');
+       // Service saved successfully
+        //showErrorDialog(context, 'Service saved successfully!');
       
       } else {
          showErrorDialog(context, 'Failed to save service');
@@ -78,10 +80,23 @@ void saveServiceToDatabase(BuildContext context, String serviceName, String emai
           body:  ListView(
           children: [
             // "Emergency" Section Title
+            //banner image
+            SizedBox(
+            height: MediaQuery.of(context).size.height * 0.2, // 20% of screen height
+            child: Center(
+               child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+              child: const Image(
+                image: AssetImage('assets/images/ServiceImage3.png'),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
-              "Emergency",
+              "Emergency Services",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -89,7 +104,7 @@ void saveServiceToDatabase(BuildContext context, String serviceName, String emai
               ),
             ),
           ),
-             //List of services
+                        //List of services
               const Padding(padding: EdgeInsets.all(16.0)), //add space
               //add round image
               ListTile(  

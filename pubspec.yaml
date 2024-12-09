@@ -65,6 +65,7 @@ flutter:
     - assets/images/electrician.jpg
     - assets/images/flooring.jpg
     - assets/images/plumbing.jpg
+    - assets/images/ServiceImage3.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

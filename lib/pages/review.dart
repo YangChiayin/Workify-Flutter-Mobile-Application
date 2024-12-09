@@ -36,18 +36,33 @@ class ReviewPage extends StatelessWidget {
         Navigator.pushNamed(context, '/servicePage'); 
       } else {
         // Handle server error
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send description: ${response.body}')),
-        );
+        showErrorDialog(context, 'Failed to send description: ${response.body}');
       }
     } catch (error) {
       // Handle network or other errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $error')),
-      );
+    showErrorDialog(context, 'Error: $error');
     }
   }
 
+ void showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +70,6 @@ class ReviewPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black),
-          onPressed: () {},
-        ),
         title: const Text(
           'Review',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -75,29 +86,26 @@ class ReviewPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             //textbox to add the description
-            SizedBox(
-              //using % of the screen to make it responsive
+             SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
-            child: TextField(
-              //here I will add the controller
-              controller: reviewDescController, 
-           //   obscureText: true,
-              style: const TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
-                //labelText: 'Pa',
-                contentPadding: EdgeInsets.symmetric(vertical: 80.0),
-                labelStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black, width: 2),
-                
-                ),
-                
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1),
+              child: TextField(
+                controller: reviewDescController,
+                maxLines: 5, // Allow multiline input
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  hintText: 'Enter your description...',
+                  contentPadding: const EdgeInsets.all(16.0), // Padding inside the textbox
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 2),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                 ),
               ),
-            ),
             ),
             const SizedBox(height: 14),
             //button to continue to next screen
@@ -166,16 +174,16 @@ class ReviewPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10, right: 10),
-        child: FloatingActionButton.extended(
-          backgroundColor: Colors.white,
-          onPressed: () {},
-          label: const Text('Chat'),
-          icon: const Icon(Icons.chat),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 10, right: 10),
+      //   child: FloatingActionButton.extended(
+      //     backgroundColor: Colors.white,
+      //     onPressed: () {},
+      //     label: const Text('Chat'),
+      //     icon: const Icon(Icons.chat),
+      //   ),
+      // ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

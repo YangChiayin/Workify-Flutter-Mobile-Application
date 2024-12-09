@@ -4,7 +4,9 @@ import 'dart:convert'; // for jsonEncode
 import 'package:http/http.dart' as http;
 
 class DescriptionPage extends StatelessWidget {
-  final String serviceID; //receive the serviceID as a parameter, so I can use the API to save the description in the database
+  final String serviceID;
+  //final String email; //receive the serviceID as a parameter, so I can use the API to save the description in the database
+  // DescriptionPage({super.key, required this.serviceID, required this.email});
   DescriptionPage({super.key, required this.serviceID});
 
   final TextEditingController descController = TextEditingController();
@@ -17,9 +19,7 @@ class DescriptionPage extends StatelessWidget {
 
     // Validate input
     if (description.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Description cannot be empty')),
-      );
+      showErrorDialog(context, 'Description cannot be empty');
       return;
     }
 
@@ -36,28 +36,49 @@ class DescriptionPage extends StatelessWidget {
           //getting the serviceID
           final serviceID = result['data']['serviceId'];
             if (result["status"]) {
-              // Navigator.pushNamed(
-              //     context,
-              //     '/review',
-              //     //i am passing so I can save the checkout info in the database - chec main.dart
-              //     arguments: serviceID
-              //   );
-               Navigator.pushNamed(context, '/detail'); 
+              Navigator.pushNamed(
+                  context,
+                  '/checkout',
+                  //i am passing so I can save the checkout info in the database - chec main.dart
+                // arguments: serviceID
+                arguments: {
+                  'serviceID': serviceID,
+                  'description': description,
+                },
+              );
+              // Navigator.pushNamed(context, '/detail'); 
             }
         // Navigate to the next screen upon success
        
         } else {
         // Handle server error
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send description: ${response.body}')),
-        );
+        showErrorDialog(context, 'Failed to send description: ${response.body}');
         }
     } catch (error) {
       // Handle network or other errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $error')),
-      );
+      showErrorDialog(context, 'Error: $error');
+      
     }
+  }
+
+  void showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -67,10 +88,10 @@ class DescriptionPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black),
-          onPressed: () {},
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.menu, color: Colors.black),
+        //   onPressed: () {},
+        // ),
         title: const Text(
           'Description',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -87,35 +108,33 @@ class DescriptionPage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             //textbox to add the description
+            // Multiline TextBox with padding
             SizedBox(
-              //using % of the screen to make it responsive
               width: MediaQuery.of(context).size.width * 0.8,
-            child: TextField(
-              //here I will add the controller
-              controller: descController, 
-           //   obscureText: true,
-              style: const TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
-                //labelText: 'Pa',
-                contentPadding: EdgeInsets.symmetric(vertical: 80.0),
-                labelStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(),
-                focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black, width: 2),
-                
-                ),
-                
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey, width: 1),
+              child: TextField(
+                controller: descController,
+                maxLines: 5, // Allow multiline input
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  hintText: 'Enter your description...',
+                  contentPadding: const EdgeInsets.all(16.0), // Padding inside the textbox
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 2),
+                  ),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                 ),
               ),
-            ),
             ),
             const SizedBox(height: 14),
             //button to continue to next screen
             ElevatedButton(
               onPressed: () {
-                // Handle login logic
+                // Handle  logic
                sendDescription(context, serviceID);
               },
               style: ElevatedButton.styleFrom(
@@ -156,7 +175,13 @@ class DescriptionPage extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.home, size: 30),
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.pushNamed(
+                  context,
+                  '/servicesPage',
+                  arguments: serviceID,
+                );
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.explore, size: 30),
@@ -178,16 +203,16 @@ class DescriptionPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 10, right: 10),
-        child: FloatingActionButton.extended(
-          backgroundColor: Colors.white,
-          onPressed: () {},
-          label: const Text('Chat'),
-          icon: const Icon(Icons.chat),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.only(bottom: 10, right: 10),
+      //   child: FloatingActionButton.extended(
+      //     backgroundColor: Colors.white,
+      //     onPressed: () {},
+      //     label: const Text('Chat'),
+      //     icon: const Icon(Icons.chat),
+      //   ),
+      // ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }
