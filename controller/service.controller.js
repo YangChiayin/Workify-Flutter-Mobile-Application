@@ -14,7 +14,7 @@ exports.saveService = async (req, res, next) => {
             serviceId: savedService._id, // Include the generated serviceId
             serviceName: savedService.serviceName,
             serviceDate: savedService.serviceDate,
-            userId: savedService.userID,
+             userId: savedService.userID,
         },
     });
     } catch (error) {
@@ -51,19 +51,19 @@ exports.saveIssueDescription = async (req, res) => {
   //save the rest of the information in the database: 
   exports.saveCheckoutInfo = async (req, res) => {
     try {
-      const { serviceId, address, paymentInfo, promoCode} = req.body;
+      const { serviceId, address, ccNumber, promoCode} = req.body;
   
       // Find the service record and update the issue description
       const updatedService = await ServiceModel.findByIdAndUpdate(
         serviceId,
-        { address, paymentInfo, promoCode},
+        { address, ccNumber, promoCode},
         //remember to add this, return the updated document
         { new: true } 
       );
   
-      res.status(200).json({ success: true, data: updatedService });
+      res.status(200).json({ status: true, data: updatedService });
     } catch (error) {
-      res.status(500).json({ success: false, error: error.message });
+      res.status(500).json({ status: false, error: error.message });
     }
   };
 
@@ -80,9 +80,29 @@ exports.saveIssueDescription = async (req, res) => {
             { new: true } 
           );
       
-          res.status(200).json({ success: true, data: updatedService });
+          res.status(200).json({ status: true, data: updatedService });
         } catch (error) {
-          res.status(500).json({ success: false, error: error.message });
+          res.status(500).json({ status: false, error: error.message });
         }
       };
+
+      //get the service Name usng the service ID as a parameter
+      exports.getServiceNameById = async (req, res) => {
+        try {
+            const { serviceId } = req.params;
+    
+            // Find the service by ID
+            const service = await ServiceModel.findById(serviceId, "serviceName");
+    
+            // If service is not found, return an error
+            if (!service) {
+                return res.status(404).json({ success: false, message: "Service not found" });
+            }
+    
+            // Respond with the serviceName
+            res.status(200).json({ success: true, data: { serviceName: service.serviceName } });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
+    };
 

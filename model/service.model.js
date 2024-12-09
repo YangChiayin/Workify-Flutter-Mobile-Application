@@ -27,9 +27,9 @@ const serviceSchema = new Schema({
         type: String,
         required: false
     },
-      paymentInfo: {
-        type: String,
-        required: false
+    ccNumber: {
+      type: String,
+      required: false
     },
       promoCode: {
         type: String,
