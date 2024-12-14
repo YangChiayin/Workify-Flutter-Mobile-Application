@@ -5,12 +5,9 @@ import 'package:http/http.dart' as http;
 
 class DescriptionPage extends StatelessWidget {
   final String serviceID;
-  //final String email; //receive the serviceID as a parameter, so I can use the API to save the description in the database
-  // DescriptionPage({super.key, required this.serviceID, required this.email});
   DescriptionPage({super.key, required this.serviceID});
 
   final TextEditingController descController = TextEditingController();
-//add the method to send the info to the database
 
   // API call method to send the description to the backend
   Future<void> sendDescription(BuildContext context, String serviceID) async {
@@ -46,9 +43,8 @@ class DescriptionPage extends StatelessWidget {
                   'description': description,
                 },
               );
-              // Navigator.pushNamed(context, '/detail'); 
             }
-        // Navigate to the next screen upon success
+       
        
         } else {
         // Handle server error
@@ -175,13 +171,7 @@ class DescriptionPage extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(Icons.home, size: 30),
-                onPressed: () {
-                   Navigator.pushNamed(
-                  context,
-                  '/servicesPage',
-                  arguments: serviceID,
-                );
-                },
+                onPressed: () {},
               ),
               IconButton(
                 icon: const Icon(Icons.explore, size: 30),

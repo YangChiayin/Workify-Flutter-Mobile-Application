@@ -237,11 +237,9 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      ///////////////////////////////////////////
-                      // Navigator.pushNamed(context, '/terms');
+                    onTap: () {     
                       Navigator.pushNamed(context, '/detail');
-                      ///////////////////////////////////////////
+
                     },
                     child: const Text(
                       'Terms of Service',

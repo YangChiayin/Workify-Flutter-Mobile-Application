@@ -98,9 +98,9 @@ class _CheckoutState extends State<Checkout> {
               Navigator.pushNamed(
                   context,
                   '/detail',
-                  arguments: serviceID,
+                   arguments: serviceID,
                 );
-              // Navigator.pushNamed(context, '/detail'); 
+             
             }
         // Navigate to the next screen upon success
        
@@ -279,21 +279,7 @@ class _CheckoutState extends State<Checkout> {
                             ),
                           ],
                         ),
-                            //description
-                        // Row(
-                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //       children: [
-                        //         Text("Description", style: TextStyle(fontSize: 16)),
-                        //         Text(serviceName ?? "Loading...", style: TextStyle(fontSize: 16)),
-                        //       //  const Text("$serviceCost", style: TextStyle(fontSize: 16)),
-                        //       ],
-                        //     ),      
-                      // ListTile(
-                        
-                      //   title: Text(serviceName ?? "Loading..."),
-                      //   subtitle: const Text("Standard Fee\nInitial visit and assessment"),
-                      //   trailing: Text("$serviceCost", style: const TextStyle(fontWeight: FontWeight.bold)),
-                      // ),
+                      
                       const Divider(),
 
                       // Subtotal, Taxes, and Total

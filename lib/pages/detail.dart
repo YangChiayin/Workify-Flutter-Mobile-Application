@@ -1,14 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:mobile_app_final_project/pages/config.dart';
 
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+   final String serviceID;
+  const DetailPage({super.key, required this.serviceID});
+
+  // Function to fetch the email
+  Future<String> fetchEmail(String serviceID) async {
+    try {
+      final response = await http.get(Uri.parse('$getEmail/$serviceID'));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['email']; 
+      } else {
+        throw Exception('Failed to fetch email');
+      }
+    } catch (e) {
+      return 'Error: $e';
+    }
+  }
+
+void showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
        // Retrieve the serviceID from arguments
-   // final String serviceID = ModalRoute.of(context)!.settings.arguments as String;
-
+   
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -36,12 +76,21 @@ class DetailPage extends StatelessWidget {
             const SizedBox(height: 14),
             //button to continue to next screen
             ElevatedButton(
-              onPressed: () {
-                //  Navigator.pushNamed(
-                //   context,
-                //   '/review',
-                //  // arguments: serviceID,
-                // );
+             onPressed: () async {
+                try {
+                  // Fetch email and store it in a variable
+                  final email = await fetchEmail(serviceID);
+                  print('Fetched Email: $email');
+                  // Navigate to the next screen and pass the email
+                     Navigator.pushNamed(
+                        context,
+                        '/servicesPage',
+                         arguments: email,
+                      );
+                } catch (e) {
+                  // Handle error if the fetch fails
+                   showErrorDialog(context, 'Error: $e');
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

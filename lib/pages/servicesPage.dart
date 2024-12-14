@@ -1,11 +1,9 @@
-// import 'dart:math';
-
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert'; 
 import 'config.dart';
 
-//I changed to a statefullWiget so I can have the search bar
+
 class ServicesPage extends StatelessWidget {
    final String email; // Receive email as a parameter
   const ServicesPage({super.key, required this.email});
@@ -34,10 +32,7 @@ void saveServiceToDatabase(BuildContext context, String serviceName, String emai
             '/description',
             //i am passing so I can save the description in the database - chec main.dart
             arguments: serviceID
-          );
-       // Service saved successfully
-        //showErrorDialog(context, 'Service saved successfully!');
-      
+          );    
       } else {
          showErrorDialog(context, 'Failed to save service');
       }
@@ -201,9 +196,4 @@ void saveServiceToDatabase(BuildContext context, String serviceName, String emai
           );
       }
       
-        // @override
-        // State<StatefulWidget> createState() {
-        //   // TODO: implement createState
-        //   throw UnimplementedError();
-        // }
 }

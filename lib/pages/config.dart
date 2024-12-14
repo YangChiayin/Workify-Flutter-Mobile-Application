@@ -17,3 +17,6 @@ const reviewInfo = "${url}services/saveReviewInfo";
 
 const getServiceName = "${url}services/getServiceNameById"; //in the checkout screen we will pass the service ID
 
+//get the email 
+const getEmail = "${url}services/getEmail";
+

@@ -10,7 +10,7 @@ class SignupPage extends StatelessWidget {
   // Create controllers to store the email and password input
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-//  bool _isNotValid = false;
+
 
   //create a function to snd the email and password to backkend
   void registerUser(BuildContext context) async {
@@ -133,8 +133,8 @@ class SignupPage extends StatelessWidget {
             //I Rremoved the const to be able to save the input
             TextField(
                controller: emailController,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 hintText: 'email@domain.com',
                 labelStyle: TextStyle(color: Colors.grey),
@@ -152,8 +152,8 @@ class SignupPage extends StatelessWidget {
              TextField(
               controller: passwordController, // Attach the password controller
               obscureText: true,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 labelStyle: TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(),

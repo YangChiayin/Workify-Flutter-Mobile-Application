@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
-       '/detail': (context) => const DetailPage(),
+       //'/detail': (context) => const DetailPage(),
       },
       // Handle the route for ServicesPage with email
       
@@ -49,12 +49,12 @@ class MyApp extends StatelessWidget {
             builder: (context) => Checkout(serviceID: serviceID, description: description), // Pass the parameters to the Checkout page
           );
         }
-      //   if(settings.name == '/detail'){
-      //       final serviceID = settings.arguments as String;
-      //       return MaterialPageRoute(
-      //       builder: (context) => DetailPage(), // Pass the serviceID to the reviewPage
-      //     );
-      //  }
+        if(settings.name == '/detail'){
+            final serviceID = settings.arguments as String;
+            return MaterialPageRoute(
+            builder: (context) => DetailPage(serviceID: serviceID), // Pass the serviceID to the reviewPage
+          );
+       }
          if(settings.name == '/review'){
             final serviceID = settings.arguments as String;
             return MaterialPageRoute(
