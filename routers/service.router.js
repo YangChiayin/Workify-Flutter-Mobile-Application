@@ -14,5 +14,8 @@ router.post("/saveReviewInfo", serviceController.saveReviewInfo);
 // get the serviceName by serviceId
 router.get("/getServiceNameById/:serviceId", serviceController.getServiceNameById);
 
+//get the email by serviceID
+router.get("/getEmail/:serviceId", serviceController.getEmailById);
+
 
 module.exports = router;

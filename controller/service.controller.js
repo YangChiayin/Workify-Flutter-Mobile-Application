@@ -1,5 +1,6 @@
 const serviceService = require("../services/service.services");
 const ServiceModel = require("../model/service.model");
+const UserModel = require("../model/user.model");
 
 //save the hired service in the database
 exports.saveService = async (req, res, next) => {
@@ -106,3 +107,31 @@ exports.saveIssueDescription = async (req, res) => {
         }
     };
 
+
+// Endpoint to get user email by service ID
+//router.get("/service/:serviceID/email", async (req, res) => {
+  exports.getEmailById = async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    // Find the service by its ID
+    const service = await ServiceModel.findById(serviceId);
+
+    if (!service) {
+      return res.status(404).json({ message: "Service not found" });
+    }
+
+    // Use the userID from the service to find the user
+    const user = await UserModel.findOne({ userID: service.userID });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the user's email
+    return res.json({ email: user.email });
+  } catch (error) {
+    console.error("Error retrieving email:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
