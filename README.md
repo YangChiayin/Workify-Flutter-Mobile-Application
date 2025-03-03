@@ -1,7 +1,7 @@
-# MyShop - Flutter Mobile Application
+# Workify - Flutter Mobile Application
 
 ## Overview
-MyShop is a Flutter-based mobile application for online shopping. The application allows users to place orders for products, view receipts, and manage orders. It's built with a combination of Flutter for the mobile frontend and a Node.js backend with MongoDB for data storage.
+Workify is a Flutter-based mobile application for online shopping. The application allows users to place orders for products, view receipts, and manage orders. It's built with a combination of Flutter for the mobile frontend and a Node.js backend with MongoDB for data storage.
 
 
 ## Features
