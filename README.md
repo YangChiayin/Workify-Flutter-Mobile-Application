@@ -1,35 +1,25 @@
-<<<<<<< HEAD
-# mobile_app_final_project
+# MyShop - Flutter Mobile Application
 
-A new Flutter project.
+## Overview
+MyShop is a Flutter-based mobile application for online shopping. The application allows users to place orders for products, view receipts, and manage orders. It's built with a combination of Flutter for the mobile frontend and a Node.js backend with MongoDB for data storage.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Features
+- **Create new orders** with customer information and product selections
+- **View all orders** in a tabular format
+- **View detailed receipts** for individual orders
+- **Delete orders**
+- Automatic calculation of **subtotal, tax, and total** based on province
+- **Shipping options** with different delivery times and costs
 
-A few resources to get you started if this is your first Flutter project:
+## Technical Details
+### Frontend
+- **Flutter**: Cross-platform UI toolkit for building natively compiled applications
+- **Bootstrap 5.3.3**: Provides responsive UI components and styling for web views
+- **EJS Templates**: Renders dynamic HTML content for web views
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-=======
-# mobile_app_final_project
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
->>>>>>> 9ac250fda6fc9ddd92b99ee2a53f61e95372cade
+### Backend
+- **Node.js**: JavaScript runtime for the server
+- **Express.js**: Web application framework
+- **MongoDB**: NoSQL database for storing order information
+- **Mongoose**: ODM for MongoDB database interactions
