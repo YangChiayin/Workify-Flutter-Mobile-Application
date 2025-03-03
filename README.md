@@ -3,6 +3,11 @@
 ## Overview
 Workify is a Flutter-based mobile application for online shopping. The application allows users to place orders for products, view receipts, and manage orders. It's built with a combination of Flutter for the mobile frontend and a Node.js backend with MongoDB for data storage.
 
+## Steps
+1. flutter packages get
+2. npm i 
+3. npm run dev
+
 
 ## Features
 - **Create new orders** with customer information and product selections
