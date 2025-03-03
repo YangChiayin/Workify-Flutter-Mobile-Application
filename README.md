@@ -1,13 +1,13 @@
 # Workify - Flutter Mobile Application
-<img src="https://github.com/user-attachments/assets/7164ff48-c908-4f47-a436-e8df327e08ba" width="500" />
-<img src="https://github.com/user-attachments/assets/c03067fd-b506-4382-9f3c-d0a3ccc5a43f" width="500" />
-<img src="https://github.com/user-attachments/assets/0179ab34-81ef-47c3-bffc-4a8e0482df29" width="500" />
-<img src="https://github.com/user-attachments/assets/7313669c-7969-4143-b469-5c55079c6911" width="500" />
-<img src="https://github.com/user-attachments/assets/4584ab96-70f3-4f2b-8ca2-9993a701337d" width="500" />
-<img src="https://github.com/user-attachments/assets/1eebd54d-7215-4a04-9bfa-63b3233d9687" width="500" />
-<img src="https://github.com/user-attachments/assets/cf91ec78-d4b2-4fb5-aae7-ba8e448446f1" width="500" />
-<img src="https://github.com/user-attachments/assets/1dd15400-d7d8-491d-83d7-d11dc6be2d87" width="500" />
-<img src="https://github.com/user-attachments/assets/21e84331-6507-473e-859d-00fa7984530f" width="500" />
+<img src="https://github.com/user-attachments/assets/7164ff48-c908-4f47-a436-e8df327e08ba" width="300" />
+<img src="https://github.com/user-attachments/assets/c03067fd-b506-4382-9f3c-d0a3ccc5a43f" width="300" />
+<img src="https://github.com/user-attachments/assets/0179ab34-81ef-47c3-bffc-4a8e0482df29" width="300" />
+<img src="https://github.com/user-attachments/assets/7313669c-7969-4143-b469-5c55079c6911" width="300" />
+<img src="https://github.com/user-attachments/assets/4584ab96-70f3-4f2b-8ca2-9993a701337d" width="300" />
+<img src="https://github.com/user-attachments/assets/1eebd54d-7215-4a04-9bfa-63b3233d9687" width="300" />
+<img src="https://github.com/user-attachments/assets/cf91ec78-d4b2-4fb5-aae7-ba8e448446f1" width="300" />
+<img src="https://github.com/user-attachments/assets/1dd15400-d7d8-491d-83d7-d11dc6be2d87" width="300" />
+<img src="https://github.com/user-attachments/assets/21e84331-6507-473e-859d-00fa7984530f" width="300" />
 
 
 ## Overview
