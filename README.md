@@ -1,11 +1,4 @@
 # Workify - Flutter Mobile Application
-# Getting Started
-run commands for the following:
-- flutter packages get
-- npm i
-- cd NodeJS_final_project
-- npm run dev
-![Screenshot 2025-03-02 220450](https://github.com/user-attachments/assets/74649acc-3864-4137-8531-051c86db2a01)
 
 ## Overview
 Workify is a Flutter-based mobile application for online shopping. The application allows users to place orders for products, view receipts, and manage orders. It's built with a combination of Flutter for the mobile frontend and a Node.js backend with MongoDB for data storage.
@@ -29,3 +22,11 @@ Workify is a Flutter-based mobile application for online shopping. The applicati
 - **Express.js**: Web application framework
 - **MongoDB**: NoSQL database for storing order information
 - **Mongoose**: ODM for MongoDB database interactions
+
+# Getting Started
+run commands for the following:
+- flutter packages get
+- npm i
+- cd NodeJS_final_project
+- npm run dev
+![Screenshot 2025-03-02 220450](https://github.com/user-attachments/assets/74649acc-3864-4137-8531-051c86db2a01)
